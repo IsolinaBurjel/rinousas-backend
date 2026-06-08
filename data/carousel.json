@@ -1,0 +1,25 @@
+{
+  "images": [
+    {
+      "id": "rinousas/carousel/WhatsApp Image 2026-06-07 at 13.20.53 AM",
+      "cloudinary_id": "rinousas/carousel/WhatsApp Image 2026-06-07 at 13.20.53 AM",
+      "url": "https://res.cloudinary.com/drvepsod9/image/upload/v1780958485/rinousas/carousel/WhatsApp%20Image%202026-06-07%20at%2013.20.53%20AM.jpg",
+      "nombre": "WhatsApp Image 2026-06-07 at 13.20.53 AM.jpeg",
+      "fecha": "2026-06-08T22:41:26.205Z"
+    },
+    {
+      "id": "rinousas/carousel/WhatsApp Image 2026-06-07 at 12.20.53 AM",
+      "cloudinary_id": "rinousas/carousel/WhatsApp Image 2026-06-07 at 12.20.53 AM",
+      "url": "https://res.cloudinary.com/drvepsod9/image/upload/v1780958507/rinousas/carousel/WhatsApp%20Image%202026-06-07%20at%2012.20.53%20AM.jpg",
+      "nombre": "WhatsApp Image 2026-06-07 at 12.20.53 AM.jpeg",
+      "fecha": "2026-06-08T22:41:47.507Z"
+    },
+    {
+      "id": "rinousas/carousel/WhatsApp Image 2026-06-09 at 12.20.53 AM",
+      "cloudinary_id": "rinousas/carousel/WhatsApp Image 2026-06-09 at 12.20.53 AM",
+      "url": "https://res.cloudinary.com/drvepsod9/image/upload/v1780958808/rinousas/carousel/WhatsApp%20Image%202026-06-09%20at%2012.20.53%20AM.jpg",
+      "nombre": "WhatsApp Image 2026-06-09 at 12.20.53 AM.jpeg",
+      "fecha": "2026-06-08T22:46:48.595Z"
+    }
+  ]
+}
