@@ -88,6 +88,11 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Error interno del servidor" });
 });
 
-app.listen(PORT, () => {
-  console.log(`✅ RINO USAS Backend corriendo en http://localhost:${PORT}`);
+{
+  /**app.listen(PORT, () => {
+  console.log(`✅ RINO USAS Backend corriendo en http://localhost:${PORT}`); */
+}
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`✅ RINO USAS Backend corriendo en puerto ${PORT}`);
 });
