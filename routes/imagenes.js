@@ -6,6 +6,8 @@ const router = express.Router();
 const fs = require("fs");
 const path = require("path");
 
+console.log("[router imagenes] loaded");
+
 // Extensiones de imagen permitidas (para compatibilidad con logo local)
 const EXTENSIONES_VALIDAS = [".jpg", ".jpeg", ".png", ".webp", ".avif", ".gif"];
 

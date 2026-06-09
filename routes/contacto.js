@@ -1,21 +1,23 @@
 // ============================================================
 // routes/contacto.js — Formulario de contacto con Nodemailer
 // ============================================================
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const nodemailer = require('nodemailer');
-const validator = require('validator');
+const nodemailer = require("nodemailer");
+const validator = require("validator");
+
+console.log("[router contacto] loaded");
 
 /**
  * Sanitiza una cadena de texto para evitar inyecciones HTML básicas.
  */
 function sanitizar(str) {
-  if (typeof str !== 'string') return '';
+  if (typeof str !== "string") return "";
   return str
     .trim()
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
     .slice(0, 2000); // Limita la longitud máxima
 }
 
@@ -24,40 +26,42 @@ function sanitizar(str) {
  */
 function crearTransporter() {
   return nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    host: process.env.SMTP_HOST || "smtp.gmail.com",
     port: parseInt(process.env.SMTP_PORT) || 587,
-    secure: process.env.SMTP_SECURE === 'true',
+    secure: process.env.SMTP_SECURE === "true",
     auth: {
       user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
-    }
+      pass: process.env.SMTP_PASS,
+    },
   });
 }
 
 // POST /api/contacto — Procesa y envía el formulario
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   const { nombre, contacto, mensaje } = req.body;
 
   // ─── Validaciones ────────────────────────────────────────
   const errores = [];
 
   if (!nombre || sanitizar(nombre).length < 2) {
-    errores.push('El nombre debe tener al menos 2 caracteres.');
+    errores.push("El nombre debe tener al menos 2 caracteres.");
   }
 
   if (!contacto || sanitizar(contacto).length < 5) {
-    errores.push('Debes ingresar un correo o teléfono válido.');
+    errores.push("Debes ingresar un correo o teléfono válido.");
   } else {
     // Acepta email o número de teléfono (mínimo 7 dígitos)
     const esEmail = validator.isEmail(contacto.trim());
     const esTelefono = /^\+?[\d\s\-().]{7,20}$/.test(contacto.trim());
     if (!esEmail && !esTelefono) {
-      errores.push('El contacto debe ser un correo electrónico o teléfono válido.');
+      errores.push(
+        "El contacto debe ser un correo electrónico o teléfono válido.",
+      );
     }
   }
 
   if (!mensaje || sanitizar(mensaje).length < 10) {
-    errores.push('El mensaje debe tener al menos 10 caracteres.');
+    errores.push("El mensaje debe tener al menos 10 caracteres.");
   }
 
   if (errores.length > 0) {
@@ -76,7 +80,7 @@ router.post('/', async (req, res) => {
     // Correo al dueño de RINO USAS
     await transporter.sendMail({
       from: `"Web RINO USAS" <${process.env.SMTP_USER}>`,
-      to: process.env.EMAIL_RECEPTOR || 'rinousas@gmail.com',
+      to: process.env.EMAIL_RECEPTOR || "rinousas@gmail.com",
       subject: `📩 Nueva solicitud de cotización - ${nombreLimpio}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
@@ -103,7 +107,7 @@ router.post('/', async (req, res) => {
             <p style="color: #999; font-size: 12px;">Enviado desde el formulario web de RINO USAS</p>
           </div>
         </div>
-      `
+      `,
     });
 
     // Correo de confirmación al cliente (solo si proporcionó email)
@@ -112,7 +116,7 @@ router.post('/', async (req, res) => {
       await transporter.sendMail({
         from: `"RINO USAS" <${process.env.SMTP_USER}>`,
         to: contactoLimpio,
-        subject: 'Recibimos tu solicitud — RINO USAS',
+        subject: "Recibimos tu solicitud — RINO USAS",
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <div style="background: #1a2940; padding: 24px; color: white; border-radius: 8px 8px 0 0;">
@@ -125,17 +129,17 @@ router.post('/', async (req, res) => {
               <p style="margin-top: 24px;">— Equipo RINO USAS</p>
             </div>
           </div>
-        `
+        `,
       });
     }
 
-    res.json({ success: true, mensaje: 'Solicitud enviada correctamente.' });
-
+    res.json({ success: true, mensaje: "Solicitud enviada correctamente." });
   } catch (error) {
-    console.error('[contacto] Error enviando correo:', error.message);
+    console.error("[contacto] Error enviando correo:", error.message);
     res.status(500).json({
       success: false,
-      error: 'No se pudo enviar el correo. Intenta más tarde o contáctanos por WhatsApp.'
+      error:
+        "No se pudo enviar el correo. Intenta más tarde o contáctanos por WhatsApp.",
     });
   }
 });

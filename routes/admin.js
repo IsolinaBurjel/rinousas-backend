@@ -8,6 +8,8 @@ const fs = require("fs");
 const path = require("path");
 const { uploadImage, deleteImage } = require("../utils/cloudinary");
 
+console.log("[router admin] loaded");
+
 // Configurar multer para cargas en memoria
 const upload = multer({ storage: multer.memoryStorage() });
 

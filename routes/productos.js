@@ -7,6 +7,8 @@ const path = require("path");
 const fs = require("fs");
 const XLSX = require("xlsx");
 
+console.log("[router productos] loaded");
+
 // Ruta al archivo Excel de productos
 // Primero intenta leer desde backend/data (si admin subió uno)
 // Si no existe, fallback a public/productos
