@@ -57,6 +57,9 @@ try {
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// ─── Trust proxy (necesario para Render/Heroku/Railway) ───
+app.set("trust proxy", 1);
+
 console.log("[server] starting backend server");
 console.log("[server] config", {
   PORT,
